@@ -24,21 +24,24 @@ jobs:
           alma-8,
           alma-9,
           centos-7,
-          debian-9,
           debian-10,
           debian-11,
-          fedora-34,
-          fedora-35,
           fedora-36,
-          opensuse-15.2,
-          opensuse-15.3,
+          fedora-37,
+          fedora-38,
+          fedora-39,
           opensuse-15.4,
+          opensuse-15.5,
           ubuntu-18.04,
           ubuntu-20.04,
           ubuntu-22.04
         ]
+        targetplatform: [
+          linux/amd64
+        ]
     env:
       DISTRO_TO_BUILD: ${{ matrix.distro_to_build }}
+      TARGETPLATFORM: ${{ matrix.targetplatform }}
       REPO: crops/yocto
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -46,7 +49,7 @@ jobs:
       GHCR_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Build and test the images
       - name: Run build-and-test.sh

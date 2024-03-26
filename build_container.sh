@@ -24,7 +24,6 @@ tmpdir=`mktemp -d tmp-$TAG.XXX`
 cp -r $dockerdir $tmpdir
 workdir=$tmpdir/$TAG
 
-cp install-multilib.sh $workdir
 cp build-install-dumb-init.sh $workdir
 cp install-buildtools.sh $workdir
 cp install-buildtools-make.sh $workdir
@@ -34,6 +33,7 @@ baseimage=`grep FROM Dockerfile | sed -e 's/FROM //'`
 ${ENGINE_CMD} pull $baseimage
 
 ${ENGINE_CMD} build \
+       --build-arg TARGETPLATFORM=$TARGETPLATFORM \
        --build-arg http_proxy=$http_proxy \
        --build-arg HTTP_PROXY=$http_proxy \
        --build-arg https_proxy=$https_proxy \
@@ -64,6 +64,7 @@ sed -i -e "s#crops/yocto#$REPO#" Dockerfile
 
 # Lastly build the image
 ${ENGINE_CMD} build \
+       --build-arg TARGETPLATFORM=$TARGETPLATFORM \
        --build-arg http_proxy=$http_proxy \
        --build-arg HTTP_PROXY=$http_proxy \
        --build-arg https_proxy=$https_proxy \
@@ -74,10 +75,10 @@ ${ENGINE_CMD} build \
 cd -
 
 # base tests
-ENGINE_CMD=${ENGINE_CMD}
+ENGINE_CMD=${ENGINE_CMD} \
     ./tests/container/vnc-test.sh $REPO:$DISTRO_TO_BUILD-base
 # builder tests
-ENGINE_CMD=${ENGINE_CMD}
+ENGINE_CMD=${ENGINE_CMD} \
     ./tests/container/smoke.sh $REPO:$DISTRO_TO_BUILD-builder
 
 

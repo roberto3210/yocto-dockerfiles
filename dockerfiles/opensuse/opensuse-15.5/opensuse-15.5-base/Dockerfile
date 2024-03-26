@@ -1,11 +1,13 @@
-# opensuse-15.2-base
+# opensuse-15.5-base
 # Copyright (C) 2015-2020 Intel Corporation
+# Copyright (C) 2022-2024 Konsulko Group
 #
 # SPDX-License-Identifier: GPL-2.0-only
 ##
 
-FROM opensuse/leap:15.2
+FROM opensuse/leap:15.5
 
+# Keep these in alphabetical order, as sorted by vim :sort
 RUN zypper --non-interactive install \
                    bzip2 \
                    chrpath \
@@ -16,20 +18,21 @@ RUN zypper --non-interactive install \
                    glibc-locale \
                    gzip \
                    iproute2 \
+                   libSDL-devel \
                    lz4 \
                    make \
                    makeinfo \
                    net-tools \
                    patch \
-                   python \
-                   python-curses \
-                   python-xml \
                    python3 \
+		   python3-Jinja2 \
                    python3-curses \
+		   python3-pexpect \
 		   python3-pip \
+                   rpcgen \
                    socat \
                    subversion \
-                   sudo  \
+                   sudo \
                    tar \
                    wget \
                    xorg-x11-Xvnc \
