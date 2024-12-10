@@ -1,11 +1,11 @@
-# opensuse-15.5-base
+# opensuse-15.6-base
 # Copyright (C) 2015-2020 Intel Corporation
 # Copyright (C) 2022-2024 Konsulko Group
 #
 # SPDX-License-Identifier: GPL-2.0-only
 ##
 
-FROM opensuse/leap:15.5
+FROM opensuse/leap:15.6
 
 # Keep these in alphabetical order, as sorted by vim :sort
 RUN zypper --non-interactive install \
@@ -17,8 +17,9 @@ RUN zypper --non-interactive install \
                    git \
                    glibc-locale \
                    gzip \
+                   hostname \
                    iproute2 \
-                   libSDL-devel \
+                   libacl1 \
                    lz4 \
                    make \
                    makeinfo \

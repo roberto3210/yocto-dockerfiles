@@ -1,16 +1,16 @@
-# fedora-37-base
+# fedora-40-base
 # Copyright (C) 2021 Intel Corporation
 # Copyright (C) 2021-2024 Konsulko Group
 #
 # SPDX-License-Identifier: GPL-2.0-only
 #
 
-FROM fedora:37
+FROM fedora:40
 
 RUN dnf -y update && \
     dnf -y install \
 	# These packages were copied straight from the Yocto Project reference
-        # manual which is why they are not alphabetized 
+        # manual which is why they are not alphabetized
         gawk \
         make \
         wget \
@@ -45,6 +45,7 @@ RUN dnf -y update && \
         xz \
         python3-GitPython \
         python3-jinja2 \
+        python3-virtualenv \
         SDL-devel \
         xterm \
         rpcgen \
@@ -69,6 +70,12 @@ RUN dnf -y update && \
     echo "" | vncpasswd -f > /etc/vncskel/.vnc/passwd && \
     chmod 0600 /etc/vncskel/.vnc/passwd && \
     useradd -U -m yoctouser
+
+# Install buildtools for wget
+
+COPY install-buildtools.sh /
+RUN bash /install-buildtools.sh && \
+    rm /install-buildtools.sh
 
 COPY build-install-dumb-init.sh /
 RUN  bash /build-install-dumb-init.sh && \
