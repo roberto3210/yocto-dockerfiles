@@ -19,11 +19,12 @@ RUN apt-get clean && \
         gawk \
         git-core \
         locales \
-	lz4 \
+        lz4 \
         procps \
-	python \
+        python \
         python3 \
-	python3-pip \
+        python3-pip \
+        python3-virtualenv \
         screen \
         socat \
         subversion \
@@ -35,7 +36,7 @@ RUN apt-get clean && \
         unzip \
         wget \
         xz-utils \
-	zstd && \
+        zstd && \
     case ${TARGETPLATFORM} in \
         "linux/amd64") \
             DEBIAN_FRONTEND=noninteractive apt-get install -y \

@@ -1,10 +1,11 @@
-# ubuntu-20.04-base
+# ubuntu-24.04-base
 # Copyright (C) 2020-2021 Intel Corporation
+# Copyright (C) 2022-2024 Konsulko Group
 #
 # SPDX-License-Identifier: GPL-2.0-only
 #
 
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG TARGETPLATFORM
 
@@ -21,10 +22,10 @@ RUN apt-get update && \
         build-essential \
         chrpath \
         socat \
-        python \
         python3 \
         python3-pip \
         python3-pexpect \
+        python3-virtualenv \
         xz-utils  \
         locales \
         cpio \
@@ -34,16 +35,14 @@ RUN apt-get update && \
         iputils-ping \
         python3-git \
         python3-jinja2 \
-        python3-virtualenv \
-        libegl1-mesa \
-        libsdl1.2-dev \
-        pylint3 \
+        pylint \
         xterm \
         iproute2 \
         fluxbox \
         tightvncserver \
         lz4 \
-        zstd && \
+        zstd \
+        file && \
     case ${TARGETPLATFORM} in \
         "linux/amd64") \
             DEBIAN_FRONTEND=noninteractive apt-get install -y \

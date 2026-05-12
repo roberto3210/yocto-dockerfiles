@@ -1,48 +1,41 @@
-# ubuntu-20.04-base
-# Copyright (C) 2020-2021 Intel Corporation
+# debian-12-base
+# Copyright (C) 2015-2021 Intel Corporation
 #
 # SPDX-License-Identifier: GPL-2.0-only
 #
 
-FROM ubuntu:20.04
+FROM debian:12
 
 ARG TARGETPLATFORM
 
-RUN apt-get update && \
+RUN apt-get clean && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        gawk \
-        wget \
-        git-core \
-        subversion \
-        diffstat \
-        unzip \
-        sysstat \
-        texinfo \
         build-essential \
         chrpath \
-        socat \
-        python \
+        cpio \
+        diffstat \
+        file \
+        fluxbox \
+        gawk \
+        git-core \
+        locales \
+        lz4 \
+        procps \
         python3 \
         python3-pip \
-        python3-pexpect \
-        xz-utils  \
-        locales \
-        cpio \
-        screen \
-        tmux \
-        sudo \
-        iputils-ping \
-        python3-git \
-        python3-jinja2 \
         python3-virtualenv \
-        libegl1-mesa \
-        libsdl1.2-dev \
-        pylint3 \
-        xterm \
-        iproute2 \
-        fluxbox \
+        screen \
+        socat \
+        subversion \
+        sudo \
+        sysstat \
+        texinfo \
         tightvncserver \
-        lz4 \
+        tmux \
+        unzip \
+        wget \
+        xz-utils \
         zstd && \
     case ${TARGETPLATFORM} in \
         "linux/amd64") \
@@ -57,11 +50,9 @@ RUN apt-get update && \
     echo "" | vncpasswd -f > /etc/vncskel/.vnc/passwd && \
     chmod 0600 /etc/vncskel/.vnc/passwd && \
     useradd -U -m yoctouser && \
-    /usr/sbin/locale-gen en_US.UTF-8 && \
-    echo 'dash dash/sh boolean false' | debconf-set-selections && \
-    DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+    echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen
 
-COPY build-install-dumb-init.sh /
+COPY build-install-dumb-init.sh  /
 RUN  bash /build-install-dumb-init.sh && \
      rm /build-install-dumb-init.sh && \
      apt-get clean
